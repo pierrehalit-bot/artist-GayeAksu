@@ -5,7 +5,6 @@ import { Project } from "@/types";
 import ProjectCard from "@/components/ProjectCard";
 import { Button } from "@/components/ui/button";
 import { Loader2, MapPinOff } from "lucide-react";
-import { createHeaders } from "@/lib/utils"; // Wait, utils helper for headers? No, using fetch directly.
 
 // Haversine formula to calculate distance
 function calculateDistance(lat1: number, lon1: number, lat2: number, lon2: number) {

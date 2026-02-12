@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Countdown } from "@/types";
-import { formatDuration, intervalToDuration, isPast } from "date-fns";
+import { formatDuration, intervalToDuration, isPast, Duration } from "date-fns";
 import { Play } from "lucide-react";
 
 interface CountdownHeroProps {
