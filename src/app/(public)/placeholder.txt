@@ -1,0 +1,11 @@
+// This file is empty because the root page.tsx is at src/app/page.tsx
+// But the (public) layout wraps pages inside (public) directory. 
+// Homepage is at root, so it doesn't get (public) layout automatically unless we move it or import the Navbar there too.
+// Or we wrap root layout or make (public) the default. 
+// For now, let's keep Homepage in root and manually adding Navbar or assume it will be refactored.
+// Actually, I can just import the Navbar in Homepage or make Homepage part of (public) group.
+
+// Correct approach: Move src/app/page.tsx to src/app/(public)/page.tsx
+// But Next.js App Router requires page.tsx at root if we want "/" to work directly without rewrite.
+// It's cleaner to have src/app/page.tsx at root.
+// I will create a Navbar component and use it in root page and inside (public) layout.
