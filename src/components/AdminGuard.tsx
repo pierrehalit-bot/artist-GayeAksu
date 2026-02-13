@@ -1,17 +1,25 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "@/lib/firebase.client";
 import { Loader2 } from "lucide-react";
 
 export default function AdminGuard({ children }: { children: React.ReactNode }) {
     const router = useRouter();
+    const pathname = usePathname();
     const [loading, setLoading] = useState(true);
     const [authorized, setAuthorized] = useState(false);
 
     useEffect(() => {
+        // Login sayfasındaysak kontrol yapma
+        if (pathname === "/admin/login") {
+            setLoading(false);
+            setAuthorized(true);
+            return;
+        }
+
         const unsubscribe = onAuthStateChanged(auth, async (user) => {
             if (!user) {
                 router.push("/admin/login");
