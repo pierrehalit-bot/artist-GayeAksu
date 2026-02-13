@@ -28,8 +28,8 @@ export default function AdminLogin() {
         } catch (error: any) {
             toast({
                 variant: "destructive",
-                title: "Login Failed",
-                description: error.message || "Please check your credentials.",
+                title: "Giriş Başarısız",
+                description: "Lütfen bilgilerinizi kontrol edin.",
             });
         } finally {
             setLoading(false);
@@ -40,7 +40,7 @@ export default function AdminLogin() {
         <div className="flex h-screen w-full items-center justify-center bg-muted/40 px-4">
             <Card className="w-full max-w-sm">
                 <CardHeader>
-                    <CardTitle className="text-2xl">Admin Login</CardTitle>
+                    <CardTitle className="text-2xl">Yönetici Girişi</CardTitle>
                     <CardDescription>
                         Admin paneline giriş yapmak için bilgilerinizi girin.
                     </CardDescription>
@@ -48,7 +48,7 @@ export default function AdminLogin() {
                 <form onSubmit={handleLogin}>
                     <CardContent className="grid gap-4">
                         <div className="grid gap-2">
-                            <Label htmlFor="email">Email</Label>
+                            <Label htmlFor="email">E-posta</Label>
                             <Input
                                 id="email"
                                 type="email"

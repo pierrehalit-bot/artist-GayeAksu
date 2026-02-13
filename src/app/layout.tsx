@@ -9,23 +9,23 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
     title: {
-        default: "Official Artist Website",
-        template: "%s | Artist Name"
+        default: "Resmi Sanatçı Websitesi",
+        template: "%s | Sanatçı Adı"
     },
-    description: "Stay tuned for upcoming releases, projects, and announcements from Artist Name.",
+    description: "Sanatçı Adı'ndan yaklaşan yayınlar, projeler ve duyurular için takipte kalın.",
     metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000"),
     openGraph: {
-        title: "Official Artist Website",
-        description: "Stay tuned for upcoming releases and projects.",
+        title: "Resmi Sanatçı Websitesi",
+        description: "Yaklaşan yayınlar ve projeler için takipte kalın.",
         url: "/",
-        siteName: "Artist Website",
+        siteName: "Sanatçı Websitesi",
         locale: "tr_TR",
         type: "website",
     },
     twitter: {
         card: "summary_large_image",
-        title: "Official Artist Website",
-        description: "Stay tuned for upcoming releases and projects.",
+        title: "Resmi Sanatçı Websitesi",
+        description: "Yaklaşan yayınlar ve projeler için takipte kalın.",
     },
     robots: {
         index: true,
@@ -49,7 +49,7 @@ export default function RootLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <html lang="en" suppressHydrationWarning>
+        <html lang="tr" suppressHydrationWarning>
             <body className={cn(inter.className, "min-h-screen bg-background font-sans antialiased")}>
                 <Providers>
                     {children}

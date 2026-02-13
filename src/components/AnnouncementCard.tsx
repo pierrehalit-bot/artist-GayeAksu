@@ -1,7 +1,8 @@
 import { Announcement } from "@/types";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge"; // Need to create Badge
+import { Badge } from "@/components/ui/badge";
 import { format } from "date-fns";
+import { tr } from "date-fns/locale";
 import Image from "next/image";
 
 interface AnnouncementCardProps {
@@ -18,14 +19,14 @@ export default function AnnouncementCard({ announcement, onClick }: Announcement
             <CardHeader>
                 <div className="flex justify-between items-start mb-2">
                     <span className="text-xs text-muted-foreground">
-                        {announcement.createdAt ? format(new Date(announcement.createdAt), "dd MMM yyyy") : "Yeni"}
+                        {announcement.createdAt ? format(new Date(announcement.createdAt), "dd MMM yyyy", { locale: tr }) : "Yeni"}
                     </span>
                     {announcement.tags && announcement.tags.length > 0 && (
                         <div className="flex gap-1 flex-wrap justify-end">
                             {announcement.tags.map(tag => (
-                                <span key={tag} className="bg-primary/10 text-primary text-[10px] px-2 py-0.5 rounded-full">
+                                <Badge key={tag} variant="secondary" className="text-[10px] px-2 py-0.5">
                                     {tag}
-                                </span>
+                                </Badge>
                             ))}
                         </div>
                     )}

@@ -16,17 +16,17 @@ export default function PublicLayout({
                             ARTIST
                         </Link>
                         <nav className="flex items-center gap-6 text-sm font-medium">
-                            <Link href="/bio" className="transition-colors hover:text-foreground/80 text-foreground/60">Bio</Link>
-                            <Link href="/projects" className="transition-colors hover:text-foreground/80 text-foreground/60">Yakaladakiler</Link>
+                            <Link href="/bio" className="transition-colors hover:text-foreground/80 text-foreground/60">Biyografi</Link>
+                            <Link href="/projects" className="transition-colors hover:text-foreground/80 text-foreground/60">Projeler</Link>
                             <Link href="/announcements" className="transition-colors hover:text-foreground/80 text-foreground/60">Duyurular</Link>
                         </nav>
                     </div>
                     {/* Mobile Nav could be added here */}
                     <div className="flex flex-1 items-center justify-between space-x-2 md:justify-end">
-                        <Button variant="ghost" size="icon" asChild title="Admin Login">
+                        <Button variant="ghost" size="icon" asChild title="Yönetici Girişi">
                             <Link href="/admin/login">
                                 <LockKeyhole className="h-4 w-4 text-muted-foreground/50 hover:text-foreground" />
-                                <span className="sr-only">Admin Login</span>
+                                <span className="sr-only">Yönetici Girişi</span>
                             </Link>
                         </Button>
                     </div>
@@ -35,7 +35,7 @@ export default function PublicLayout({
             <main className="flex-1">{children}</main>
             <footer className="py-6 md:px-8 md:py-0">
                 <div className="container flex flex-col items-center justify-between gap-4 md:h-24 md:flex-row text-sm text-muted-foreground">
-                    <p>&copy; 2024 Artist Name. All rights reserved.</p>
+                    <p>&copy; {new Date().getFullYear()} Sanatçı Adı. Tüm hakları saklıdır.</p>
                 </div>
             </footer>
         </div>

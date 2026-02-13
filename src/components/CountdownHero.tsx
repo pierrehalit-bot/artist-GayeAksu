@@ -78,28 +78,28 @@ export default function CountdownHero({ countdown }: CountdownHeroProps) {
                             <span className="text-4xl md:text-6xl font-mono font-bold">
                                 {String(timeLeft.days || 0).padStart(2, '0')}
                             </span>
-                            <span className="text-sm uppercase tracking-widest">Days</span>
+                            <span className="text-sm uppercase tracking-widest">GÜN</span>
                         </div>
                         <span className="text-4xl md:text-6xl font-mono">:</span>
                         <div className="flex flex-col items-center">
                             <span className="text-4xl md:text-6xl font-mono font-bold">
                                 {String(timeLeft.hours || 0).padStart(2, '0')}
                             </span>
-                            <span className="text-sm uppercase tracking-widest">Hours</span>
+                            <span className="text-sm uppercase tracking-widest">SAAT</span>
                         </div>
                         <span className="text-4xl md:text-6xl font-mono">:</span>
                         <div className="flex flex-col items-center">
                             <span className="text-4xl md:text-6xl font-mono font-bold">
                                 {String(timeLeft.minutes || 0).padStart(2, '0')}
                             </span>
-                            <span className="text-sm uppercase tracking-widest">Mins</span>
+                            <span className="text-sm uppercase tracking-widest">DK</span>
                         </div>
                         <span className="text-4xl md:text-6xl font-mono">:</span>
                         <div className="flex flex-col items-center">
                             <span className="text-4xl md:text-6xl font-mono font-bold">
                                 {String(timeLeft.seconds || 0).padStart(2, '0')}
                             </span>
-                            <span className="text-sm uppercase tracking-widest">Secs</span>
+                            <span className="text-sm uppercase tracking-widest">SN</span>
                         </div>
                     </div>
                 ) : isCompleted ? (

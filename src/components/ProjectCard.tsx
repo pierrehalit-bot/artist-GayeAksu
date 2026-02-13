@@ -21,7 +21,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
                     />
                 ) : (
                     <div className="flex h-full w-full items-center justify-center bg-muted text-muted-foreground">
-                        Img Placeholder
+                        Görsel Yok
                     </div>
                 )}
             </div>

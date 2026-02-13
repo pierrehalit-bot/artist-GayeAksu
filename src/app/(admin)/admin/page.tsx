@@ -28,7 +28,7 @@ export default function AdminDashboard() {
 
     return (
         <div className="flex flex-col gap-8">
-            <h1 className="text-3xl font-bold">Dashboard</h1>
+            <h1 className="text-3xl font-bold">Panel Özeti</h1>
 
             <div className="grid gap-4 md:grid-cols-3">
                 <Card>

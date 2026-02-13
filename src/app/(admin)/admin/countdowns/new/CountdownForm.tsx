@@ -98,49 +98,53 @@ export default function CountdownForm({ defaultValues, id }: { defaultValues?: a
                 <div className="grid gap-2">
                     <Label>Video Dosyası (MP4/WebM)</Label>
                     <Input type="file" accept="video/*" onChange={(e) => handleFileUpload(e, 'videoUrl')} disabled={uploading} />
-                    <Input type="hidden" {...register("videoUrl")} />
+                    {watch("videoUrl") && <p className="text-xs text-green-600">Video yüklendi: {watch("videoUrl")}</p>}
                 </div>
 
                 <div className="grid gap-2">
-                    <Label>Video Poster (Görsel)</Label>
+                    <Label>Video Poster Görseli</Label>
                     <Input type="file" accept="image/*" onChange={(e) => handleFileUpload(e, 'videoPosterUrl')} disabled={uploading} />
-                    <Input type="hidden" {...register("videoPosterUrl")} />
+                    {watch("videoPosterUrl") && <img src={watch("videoPosterUrl")} className="h-20 w-auto rounded" />}
                 </div>
 
                 <div className="grid gap-2">
-                    <Label>Tamamlanınca Açılacak Link</Label>
-                    <Input {...register("onCompleteLink")} placeholder="https://youtube.com/..." />
+                    <Label htmlFor="onCompleteLink">Tamamlanınca Yönlendirilecek Link</Label>
+                    <Input id="onCompleteLink" placeholder="https://..." {...register("onCompleteLink")} />
                 </div>
 
                 <div className="grid gap-2">
-                    <Label>Link Tipi</Label>
+                    <Label>Tamamlanma Türü</Label>
                     <Select onValueChange={(val) => setValue("onCompleteLinkType", val as any)} defaultValue={watch("onCompleteLinkType")}>
                         <SelectTrigger>
                             <SelectValue placeholder="Seçiniz" />
                         </SelectTrigger>
                         <SelectContent>
-                            <SelectItem value="youtube">YouTube Video</SelectItem>
+                            <SelectItem value="youtube">YouTube</SelectItem>
                             <SelectItem value="music">Müzik Platformu</SelectItem>
                             <SelectItem value="other">Diğer</SelectItem>
                         </SelectContent>
                     </Select>
                 </div>
 
-                <div className="flex items-center space-x-2">
-                    <Switch id="isActive" checked={watch("isActive")} onCheckedChange={(val) => setValue("isActive", val)} />
-                    <Label htmlFor="isActive">Aktif</Label>
+                <div className="flex items-center gap-2">
+                    <Switch
+                        id="isActive"
+                        checked={watch("isActive")}
+                        onCheckedChange={(checked) => setValue("isActive", checked)}
+                    />
+                    <Label htmlFor="isActive">Aktif Durumda</Label>
                 </div>
 
                 <div className="grid gap-2">
-                    <Label htmlFor="order">Sıralama (Küçük önce)</Label>
-                    <Input id="order" type="number" {...register("order", { valueAsNumber: true })} />
+                    <Label htmlFor="order">Sıralama (Düşük olan önce gösterilir)</Label>
+                    <Input type="number" id="order" {...register("order", { valueAsNumber: true })} />
                 </div>
-            </div>
 
-            <Button type="submit" disabled={uploading}>
-                {uploading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                Kaydet
-            </Button>
+                <Button type="submit" disabled={uploading} className="w-full">
+                    {uploading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                    {uploading ? "Yükleniyor..." : "Kaydet"}
+                </Button>
+            </div>
         </form>
     );
 }

@@ -7,6 +7,7 @@ import { Countdown } from "@/types";
 import Link from "next/link";
 import { Plus, Trash, Edit } from "lucide-react";
 import { format } from "date-fns";
+import { tr } from "date-fns/locale";
 import { auth } from "@/lib/firebase.client";
 
 export default function CountdownsPage() {
@@ -55,7 +56,7 @@ export default function CountdownsPage() {
                     <Card key={countdown.id} className="flex flex-row items-center justify-between p-6">
                         <div>
                             <CardTitle className="text-xl">{countdown.title}</CardTitle>
-                            <p className="text-sm text-muted-foreground">Target: {format(new Date(countdown.targetAt), "dd MMM yyyy HH:mm")}</p>
+                            <p className="text-sm text-muted-foreground">Hedef Tarih: {format(new Date(countdown.targetAt), "dd MMM yyyy HH:mm", { locale: tr })}</p>
                             <div className="flex gap-2 mt-2">
                                 <span className={`text-xs px-2 py-0.5 rounded-full ${countdown.isActive ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>
                                     {countdown.isActive ? "Aktif" : "Pasif"}

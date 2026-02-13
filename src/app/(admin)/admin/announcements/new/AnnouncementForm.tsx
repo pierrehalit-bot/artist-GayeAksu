@@ -102,28 +102,44 @@ export default function AnnouncementForm({ defaultValues, id }: { defaultValues?
                 <div className="grid gap-2">
                     <Label>Kapak Görseli</Label>
                     <Input type="file" accept="image/*" onChange={handleFileUpload} disabled={uploading} />
-                    <Input type="hidden" {...register("coverImageUrl")} />
-                    {watch("coverImageUrl") && (
-                        <div className="mt-2 relative w-full h-40 bg-gray-100 rounded-md overflow-hidden">
-                            <img src={watch("coverImageUrl")} alt="Cover" className="w-full h-full object-cover" />
-                        </div>
-                    )}
+                    {watch("coverImageUrl") && <img src={watch("coverImageUrl")} className="h-32 w-auto object-cover rounded" />}
                 </div>
 
-                <div className="flex items-center space-x-2">
-                    <Switch 
-                        id="isPublished" 
-                        checked={watch("isPublished")} 
-                        onCheckedChange={(val) => setValue("isPublished", val)} 
+                <div className="grid gap-2">
+                    <Label htmlFor="tags">Etiketler (Virgül ile ayırın)</Label>
+                    <Input id="tags" placeholder="Konser, Yeni Albüm, Haber" {...register("tags")} />
+                    <p className="text-xs text-muted-foreground">Örn: konser, istanbul, 2024</p>
+                </div>
+
+                <div className="grid grid-cols-3 gap-4">
+                    <div className="grid gap-2">
+                        <Label>Şehir</Label>
+                        <Input {...register("location.city")} placeholder="İstanbul" />
+                    </div>
+                    <div className="grid gap-2">
+                        <Label>Enlem (Lat)</Label>
+                        <Input type="number" step="any" {...register("location.lat", { valueAsNumber: true })} />
+                    </div>
+                    <div className="grid gap-2">
+                        <Label>Boylam (Lng)</Label>
+                        <Input type="number" step="any" {...register("location.lng", { valueAsNumber: true })} />
+                    </div>
+                </div>
+
+                <div className="flex items-center gap-2">
+                    <Switch
+                        id="isPublished"
+                        checked={watch("isPublished")}
+                        onCheckedChange={(checked) => setValue("isPublished", checked)}
                     />
-                    <Label htmlFor="isPublished">Yayınla</Label>
+                    <Label htmlFor="isPublished">Yayında</Label>
                 </div>
-            </div>
 
-            <Button type="submit" disabled={uploading}>
-                {uploading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                Kaydet
-            </Button>
+                <Button type="submit" disabled={uploading} className="w-full">
+                    {uploading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                    {uploading ? "Yükleniyor..." : "Kaydet"}
+                </Button>
+            </div>
         </form>
     );
 }

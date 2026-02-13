@@ -17,12 +17,12 @@ import { signOut } from "firebase/auth";
 import { Button } from "./ui/button";
 
 const menuItems = [
-    { href: "/admin", icon: LayoutDashboard, label: "Dashboard" },
-    { href: "/admin/countdowns", icon: Timer, label: "Countdowns" },
-    { href: "/admin/announcements", icon: Megaphone, label: "Announcements" },
-    { href: "/admin/projects", icon: Briefcase, label: "Projects" },
-    { href: "/admin/bio-builder", icon: User, label: "Bio Builder" },
-    { href: "/admin/settings", icon: Settings, label: "Settings" },
+    { href: "/admin", icon: LayoutDashboard, label: "Panel" },
+    { href: "/admin/countdowns", icon: Timer, label: "Sayaçlar" },
+    { href: "/admin/announcements", icon: Megaphone, label: "Duyurular" },
+    { href: "/admin/projects", icon: Briefcase, label: "Projeler" },
+    { href: "/admin/bio-builder", icon: User, label: "Bio Düzenleyici" },
+    { href: "/admin/settings", icon: Settings, label: "Ayarlar" },
 ];
 
 export default function Sidebar() {
@@ -35,7 +35,7 @@ export default function Sidebar() {
     return (
         <div className="flex h-screen w-64 flex-col border-r bg-card">
             <div className="flex h-14 items-center border-b px-4 font-bold text-lg">
-                Admin Panel
+                Yönetim Paneli
             </div>
             <nav className="flex-1 overflow-y-auto p-4 space-y-1">
                 {menuItems.map((item) => {
@@ -62,7 +62,7 @@ export default function Sidebar() {
                     onClick={handleLogout}
                 >
                     <LogOut className="h-4 w-4" />
-                    Logout
+                    Çıkış Yap
                 </Button>
             </div>
         </div>

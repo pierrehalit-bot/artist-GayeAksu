@@ -7,6 +7,7 @@ import { Announcement } from "@/types";
 import Link from "next/link";
 import { Plus, Trash, Edit } from "lucide-react";
 import { format } from "date-fns";
+import { tr } from "date-fns/locale";
 import { auth } from "@/lib/firebase.client";
 
 export default function AnnouncementsPage() {
@@ -49,7 +50,7 @@ export default function AnnouncementsPage() {
                     <Card key={item.id} className="flex flex-row items-center justify-between p-6">
                         <div>
                             <CardTitle className="text-xl">{item.title}</CardTitle>
-                            <p className="text-sm text-muted-foreground">Oluşturulma: {item.createdAt ? format(new Date(item.createdAt), "dd MMM yyyy") : "-"}</p>
+                            <p className="text-sm text-muted-foreground">Oluşturulma: {item.createdAt ? format(new Date(item.createdAt), "dd MMM yyyy", { locale: tr }) : "-"}</p>
                             <div className="flex gap-2 mt-2">
                                 <span className={`text-xs px-2 py-0.5 rounded-full ${item.isPublished ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'}`}>
                                     {item.isPublished ? "Yayında" : "Taslak"}

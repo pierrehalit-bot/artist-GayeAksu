@@ -98,11 +98,11 @@ export default function ProjectForm({ defaultValues, id }: { defaultValues?: any
                         <Input {...register("location.city")} />
                     </div>
                     <div className="grid gap-2">
-                        <Label>Enlem (Lat)</Label>
+                        <Label>Enlem</Label>
                         <Input type="number" step="any" {...register("location.lat", { valueAsNumber: true })} />
                     </div>
                     <div className="grid gap-2">
-                        <Label>Boylam (Lng)</Label>
+                        <Label>Boylam</Label>
                         <Input type="number" step="any" {...register("location.lng", { valueAsNumber: true })} />
                     </div>
                 </div>
@@ -110,35 +110,47 @@ export default function ProjectForm({ defaultValues, id }: { defaultValues?: any
                 <div className="grid gap-2">
                     <Label>Kapak Görseli</Label>
                     <Input type="file" accept="image/*" onChange={handleFileUpload} disabled={uploading} />
-                    <Input type="hidden" {...register("coverImageUrl")} />
+                    {watch("coverImageUrl") && <img src={watch("coverImageUrl")} className="h-32 w-auto object-cover rounded" />}
                 </div>
 
-                <div className="grid gap-2">
-                    <Label>Linkler</Label>
+                <div className="space-y-4">
+                    <div className="flex justify-between items-center">
+                        <Label>Dış Bağlantılar (Bilet, Spotify vb.)</Label>
+                        <Button type="button" variant="outline" size="sm" onClick={() => append({ label: "", url: "" })}>
+                            Link Ekle
+                        </Button>
+                    </div>
                     {fields.map((field, index) => (
-                        <div key={field.id} className="flex gap-2">
-                            <Input placeholder="Etiket (Örn: Bilet Al)" {...register(`links.${index}.label`)} />
-                            <Input placeholder="URL" {...register(`links.${index}.url`)} />
+                        <div key={field.id} className="flex gap-2 items-end">
+                            <div className="grid gap-2 flex-1">
+                                <Label>Etiket</Label>
+                                <Input {...register(`links.${index}.label`)} placeholder="Bilet Al" />
+                            </div>
+                            <div className="grid gap-2 flex-[2]">
+                                <Label>URL</Label>
+                                <Input {...register(`links.${index}.url`)} placeholder="https://..." />
+                            </div>
                             <Button type="button" variant="destructive" size="icon" onClick={() => remove(index)}>
                                 <Trash className="h-4 w-4" />
                             </Button>
                         </div>
                     ))}
-                    <Button type="button" variant="outline" size="sm" onClick={() => append({ label: "", url: "" })}>
-                        + Link Ekle
-                    </Button>
                 </div>
 
-                <div className="flex items-center space-x-2">
-                    <Switch id="isPublished" checked={watch("isPublished")} onCheckedChange={(val) => setValue("isPublished", val)} />
-                    <Label htmlFor="isPublished">Yayınla</Label>
+                <div className="flex items-center gap-2">
+                    <Switch
+                        id="isPublished"
+                        checked={watch("isPublished")}
+                        onCheckedChange={(checked) => setValue("isPublished", checked)}
+                    />
+                    <Label htmlFor="isPublished">Yayında</Label>
                 </div>
+
+                <Button type="submit" disabled={uploading} className="w-full">
+                    {uploading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                    {uploading ? "Yükleniyor..." : "Kaydet"}
+                </Button>
             </div>
-
-            <Button type="submit" disabled={uploading}>
-                {uploading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                Kaydet
-            </Button>
         </form>
     );
 }

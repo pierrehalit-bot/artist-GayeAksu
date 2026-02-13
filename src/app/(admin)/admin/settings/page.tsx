@@ -26,7 +26,7 @@ export default function SettingsPage() {
             <div className="grid gap-4 opacity-50 pointer-events-none">
                 <div className="grid gap-2">
                     <Label>Site Başlığı (SEO)</Label>
-                    <Input defaultValue="Official Artist Website" />
+                    <Input defaultValue="Resmi Sanatçı Websitesi" />
                 </div>
                 <Button>Kaydet</Button>
             </div>
