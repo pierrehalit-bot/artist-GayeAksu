@@ -12,7 +12,7 @@ Production-ready artist website with a built-in admin panel, powered by Next.js 
   - YouTube Video Integration
 
 - **Admin Panel:**
-  - Secure Login (Firebase Auth)
+  - **Secure Login:** Username-based login (mapped to Firebase Auth email/password)
   - Manage Countdowns, Announcements, Projects
   - Visual Bio Page Builder
   - Settings Management
@@ -46,8 +46,29 @@ Production-ready artist website with a built-in admin panel, powered by Next.js 
     ```
 
     > **Note:** You need to create a project in [Firebase Console](https://console.firebase.google.com/), enable Authentication (Email/Password), Firestore, and Storage.
+    
+    **Required for Admin SDK (Server-side operations):**
+    - `FIREBASE_PROJECT_ID`
+    - `FIREBASE_CLIENT_EMAIL`
+    - `FIREBASE_PRIVATE_KEY` (Get this from Project Settings > Service Accounts > Generate New Private Key)
 
-4.  **Run Development Server:**
+4.  **Create Admin User (Seed):**
+    Since the login system uses Username -> Email mapping, you must run the seed script to create your first admin user.
+    
+    ```bash
+    node scripts/seed-admin.js <username> <email> <password>
+    ```
+    
+    Example:
+    ```bash
+    node scripts/seed-admin.js admin admin@example.com superSecretPassword123
+    ```
+    
+    This script will:
+    - Create/Update the user in Firebase Auth.
+    - Create a document in `admin_users` collection in Firestore linking the username to the email.
+
+5.  **Run Development Server:**
     ```bash
     npm run dev
     ```
@@ -79,6 +100,6 @@ Or copy the contents of `firestore.rules` and `storage.rules` to the Firebase Co
 
 ## 🛡 Security
 
-- Admin routes are protected by `AdminGuard` component and Server-Side verification.
-- API routes verify Firebase ID Tokens using `firebase-admin`.
-- Only UIDs listed in `ADMIN_UIDS` env var or `admins` Firestore collection can access write operations.
+- **Admin Routes:** Protected by `AdminGuard` component and Server-Side verification.
+- **Username Resolution:** `/api/admin/resolve-username` allows resolving username to email server-side, preventing public enumeration if rate-limited (implementation details in route).
+- **Write Access:** Only UIDs listed in `ADMIN_UIDS` env var or `admins`/`admin_users` Firestore collection can access write operations.

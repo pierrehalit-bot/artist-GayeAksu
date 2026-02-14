@@ -11,7 +11,7 @@ import { useRouter } from "next/navigation";
 import { useToast } from "@/components/ui/use-toast";
 
 export default function AdminLogin() {
-    const [email, setEmail] = useState("");
+    const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false);
     const router = useRouter();
@@ -21,15 +21,41 @@ export default function AdminLogin() {
         e.preventDefault();
         setLoading(true);
         try {
+            // 1. Resolve username to email
+            const res = await fetch('/api/admin/resolve-username', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ username })
+            });
+
+            const data = await res.json();
+
+            if (!res.ok) {
+                throw new Error(data.error || "Giriş başarısız");
+            }
+
+            const email = data.email;
+
+            // 2. Sign in with resolved email
             await signInWithEmailAndPassword(auth, email, password);
+            
             // Auth state listener in AdminGuard or elsewhere will handle redirect, 
             // but explicit push is good UX.
             router.push("/admin");
         } catch (error: any) {
+            let message = "Giriş başarısız, tekrar deneyin";
+            
+            // Firebase Auth errors mapping or API errors
+            if (error.code === 'auth/wrong-password' || error.code === 'auth/user-not-found' || error.code === 'auth/invalid-credential') {
+                message = "Şifre hatalı";
+            } else if (error.message) {
+                message = error.message;
+            }
+
             toast({
                 variant: "destructive",
                 title: "Giriş Başarısız",
-                description: "Lütfen bilgilerinizi kontrol edin.",
+                description: message,
             });
         } finally {
             setLoading(false);
@@ -48,14 +74,16 @@ export default function AdminLogin() {
                 <form onSubmit={handleLogin}>
                     <CardContent className="grid gap-4">
                         <div className="grid gap-2">
-                            <Label htmlFor="email">E-posta</Label>
+                            <Label htmlFor="username">Kullanıcı Adı</Label>
                             <Input
-                                id="email"
-                                type="email"
-                                placeholder="admin@example.com"
+                                id="username"
+                                type="text"
+                                placeholder="kullaniciadi"
                                 required
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
+                                value={username}
+                                onChange={(e) => setUsername(e.target.value)}
+                                autoCapitalize="none"
+                                autoComplete="username"
                             />
                         </div>
                         <div className="grid gap-2">
